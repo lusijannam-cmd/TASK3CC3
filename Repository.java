@@ -4,9 +4,9 @@ import java.util.*;
 
 public class Repository {
 
-    private final String DB_URL = "jdbc:mysql://localhost:3306/cc3_task3?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Manila";
+    private final String DB_URL = "jdbc:mysql://127.0.0.1:3306/cc3_task3?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Manila";
     private final String USER = "root";
-    private final String PASS = "Gomer*1203"; // ← change this!
+    private final String PASS = "kyhoon080981997";
     private Connection conn;
 
     public Repository() throws Exception {
@@ -18,14 +18,12 @@ public class Repository {
     }
 
     public void save(Student s) throws Exception {
-        // Bagong SQL: walang student_id sa columns at VALUES
+
         String sql = "INSERT INTO students (first_name, middle_name, last_name, age, year_level, program, contact_no, barangay, email) "
                 +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
-
-        // WALA NA: ps.setInt(1, s.getStudentID());
 
         ps.setString(1, s.getFirstName());
         ps.setString(2, s.getMiddleName());
@@ -38,7 +36,7 @@ public class Repository {
         ps.setString(9, s.getEmail());
 
         ps.executeUpdate();
-        ps.close(); // optional pero good practice
+        ps.close();
     }
 
     public List<Student> findAll() throws Exception {
